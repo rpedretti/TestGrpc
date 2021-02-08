@@ -1,13 +1,13 @@
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import { userReducer } from '../components/UserPage/stateManagement/reducers';
-import { userSaga } from '../components/UserPage/stateManagement/userPageSaga';
+import { userReducer } from 'components/UserPage/stateManagement/reducers';
+import { userSaga } from 'components/UserPage/stateManagement/userPageSaga';
 
 const sagaMiddleware = createSagaMiddleware();
 
 export default function configureStore() {
     const middleware = [
-        sagaMiddleware
+        sagaMiddleware,
     ];
 
     const rootReducer = combineReducers({

@@ -1,6 +1,6 @@
+import * as grpcWeb from 'grpc-web';
 import { UserClient } from '../external/UserServiceClientPb';
 import { MoveRequest, Direction, MoveResult } from '../external/user_pb';
-import * as grpcWeb from 'grpc-web';
 
 const userClient = new UserClient('https://localhost:5001');
 

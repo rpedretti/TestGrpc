@@ -19,8 +19,8 @@ export class MoveRequest extends jspb.Message {
 
 export namespace MoveRequest {
   export type AsObject = {
-    amount: number,
-    direction: Direction,
+    amount: number;
+    direction: Direction;
   }
 }
 
@@ -38,7 +38,7 @@ export class MoveResponse extends jspb.Message {
 
 export namespace MoveResponse {
   export type AsObject = {
-    result: MoveResult,
+    result: MoveResult;
   }
 }
 

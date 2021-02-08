@@ -2,7 +2,86 @@
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaVersion": 6,
-        "sourceType": "module"
+        "sourceType": "module",
+        "project": "./tsconfig.json"
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:import/errors",
+        "plugin:import/warnings",
+        "plugin:import/typescript"
+    ],
+    "rules": {
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": [
+            "error"
+        ],
+        "import/extensions": 0,
+        "import/prefer-default-export": 0,
+        "@typescript-eslint/no-explicit-any": 0,
+        "react/destructuring-assignment": 0,
+        "@typescript-eslint/naming-convention": [
+            "error",
+            {
+                "selector": "typeLike",
+                "format": [
+                    "PascalCase"
+                ]
+            }
+        ],
+        "import/no-extraneous-dependencies": [
+            "error",
+            {
+                "devDependencies": [
+                    "**/*.spec.ts",
+                    "**/*.spec.tsx"
+                ]
+            }
+        ],
+        "import/order": "warn",
+        "@typescript-eslint/no-use-before-define": "off",
+        "comma-dangle": [
+            "error",
+            "always-multiline"
+        ],
+        "comma-spacing": "error",
+        "no-else-return": "error",
+        "no-undef": 0
+    },
+    "overrides": [
+        {
+            "files": [
+                "*.spec.tsx",
+                "*.spec.ts"
+            ],
+            "rules": {
+                "import/first": "off"
+            }
+        },
+        {
+            "files": [
+                "**/*.tsx"
+            ],
+            "rules": {
+                "react/prop-types": "off"
+            }
+        }
+    ],
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [
+                    ".js",
+                    ".jsx",
+                    ".ts",
+                    ".tsx"
+                ],
+                "paths": [
+                    "src"
+                ]
+            }
+        }
     },
     "plugins": [
         "@typescript-eslint"

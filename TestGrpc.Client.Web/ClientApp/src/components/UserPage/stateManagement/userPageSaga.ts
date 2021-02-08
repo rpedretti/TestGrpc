@@ -1,10 +1,10 @@
 import { all, call, put, takeEvery } from 'redux-saga/effects';
-import UserService from '../../../services/userService';
 import {
     actions,
     MoveUserAction,
-    MOVE_USER_ACTION
+    MOVE_USER_ACTION,
 } from './actions';
+import UserService from 'services/userService';
 
 type PromiseType<T> = T extends PromiseLike<infer U> ? PromiseType<U> : T; 
 
@@ -20,6 +20,6 @@ function *moveUser({ payload: { amount, direction } }: MoveUserAction) {
 
 export function *userSaga() {
     yield all([
-        takeEvery(MOVE_USER_ACTION, moveUser)
+        takeEvery(MOVE_USER_ACTION, moveUser),
     ])
 }

@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": "./src",
     "target": "es5",
     "allowJs": true,
     "esModuleInterop": true,
@@ -16,9 +17,14 @@
       "es6",
       "dom"
     ],
-    "skipLibCheck": true
+    "skipLibCheck": true,
   },
   "include": [
     "src"
-  ]
+  ],
+  "typeAcquisition": {
+    "include": [
+      "jest"
+    ]
+  }
 }

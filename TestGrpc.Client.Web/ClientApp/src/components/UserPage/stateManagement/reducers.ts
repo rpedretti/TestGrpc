@@ -1,5 +1,5 @@
-import { MoveResult } from "../../../external/user_pb";
 import { ActionTypes } from "./actions";
+import { MoveResult } from "external/user_pb";
 
 export interface UserState {
     isMoving: boolean;
@@ -8,7 +8,7 @@ export interface UserState {
 
 const initialState: UserState = {
     isMoving: false,
-    moveResult: undefined
+    moveResult: undefined,
 }
 
 export const userReducer = (state = initialState, action: ActionTypes): UserState => {
@@ -19,7 +19,7 @@ export const userReducer = (state = initialState, action: ActionTypes): UserStat
             return { 
                 ...state,
                 isMoving: false,
-                moveResult: action.payload.moveResult
+                moveResult: action.payload.moveResult,
             }
         default:
             return state;

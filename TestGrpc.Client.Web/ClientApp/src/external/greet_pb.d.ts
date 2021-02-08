@@ -16,7 +16,7 @@ export class HelloRequest extends jspb.Message {
 
 export namespace HelloRequest {
   export type AsObject = {
-    name: string,
+    name: string;
   }
 }
 
@@ -34,7 +34,7 @@ export class HelloReply extends jspb.Message {
 
 export namespace HelloReply {
   export type AsObject = {
-    message: string,
+    message: string;
   }
 }
 

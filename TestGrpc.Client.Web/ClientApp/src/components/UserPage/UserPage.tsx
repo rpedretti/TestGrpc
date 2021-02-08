@@ -1,11 +1,9 @@
-import { Box, Button, Input, InputLabel, Select, MenuItem, Typography, Divider } from '@material-ui/core';
+import { Box, Button, InputLabel, Typography, Divider } from '@material-ui/core';
 import * as React from 'react';
 import { Field, Form } from 'react-final-form';
-import { connect } from 'react-redux';
-import { Direction, MoveResult } from '../../external/user_pb';
-import { actions } from './stateManagement/actions';
 import { FormValues, UserPageProps } from './types';
-import UserPageSideEffects from './UserPageSideEffects';
+import UserPageSideEffects from './sideEffects/UserPageSideEffects';
+import { Direction, MoveResult } from 'external/user_pb';
 
 const UserPage = (props: UserPageProps) => {
     const {
@@ -14,7 +12,7 @@ const UserPage = (props: UserPageProps) => {
         moveUser,
     } = props;
 
-    const map = React.useCallback((result: MoveResult) => {
+    const map = React.useCallback((result?: MoveResult) => {
         if (result !== null && result !== undefined) {
             return result === MoveResult.DONE ? "Moved!" : "Opps, I crasehd"
         }
@@ -25,7 +23,7 @@ const UserPage = (props: UserPageProps) => {
     return (
         <Form<FormValues>
             onSubmit={v => {
-                moveUser(v.amount, v.direction)
+                moveUser(v.direction, v.amount)
             }}
             subscription={{ pristine: true }}
             initialValues={{ amount: 0, direction: Direction.FORWARD }}
@@ -34,25 +32,30 @@ const UserPage = (props: UserPageProps) => {
                     <UserPageSideEffects />
                     <Box width="100%">
                         <Box display="flex" flexDirection="column">
-                            <Field<FormValues> name="amount">
-                                {props => (
-                                    <Box width="100px">
-                                        <InputLabel id="amountInput">Amount:</InputLabel>
-                                        <Input id="amountInput" {...props.input} type="number" fullWidth={true} />
-                                    </Box>
-                                )}
-                            </Field>
-                            <Field<FormValues> name="direction">
-                                {props => (
-                                    <Box marginTop="8px" width="100px">
-                                        <InputLabel id="amountInput">Direction:</InputLabel>
-                                        <Select id="directionInput" {...props.input} fullWidth={true}>
-                                            <MenuItem value={Direction.FORWARD}>Forward</MenuItem>
-                                            <MenuItem value={Direction.BACKWARDS}>Backwards</MenuItem>
-                                        </Select>
-                                    </Box>
-                                )}
-                            </Field>
+                            <Box width="100px">
+                                <InputLabel id="amount-input">Amount:</InputLabel>
+                                <Field
+                                    name="amount" 
+                                    id="amount-input"
+                                    data-testid="amount-input"
+                                    component="input"
+                                    type="number"
+                                    parse={v => Number.parseInt(v, 10)}
+                                />
+                            </Box>
+                            <Box marginTop="12px" width="100px">
+                                <InputLabel id="direction-select">Direction:</InputLabel>
+                                <Field
+                                    name="direction"
+                                    id="direction-select"
+                                    data-testid="direction-select"
+                                    component="select"
+                                    parse={v => Number.parseInt(v, 10)}
+                                >
+                                    <option value={Direction.FORWARD} label="Forward"/>
+                                    <option value={Direction.BACKWARDS} label="Backwards" />
+                                </Field>
+                            </Box>
                             <Box marginTop="16px">
                                 <Button
                                     type="submit"
@@ -78,15 +81,4 @@ const UserPage = (props: UserPageProps) => {
     );
 };
 
-const mapSateToProps = (state: any) => {
-    return {
-        isMoving: state.user.isMoving,
-        moveResult: state.user.moveResult,
-    }
-}
-
-const mapDispatchToProps = {
-    moveUser: actions.moveUser,
-}
-
-export default connect(mapSateToProps, mapDispatchToProps)(React.memo(UserPage));
+export default React.memo(UserPage);

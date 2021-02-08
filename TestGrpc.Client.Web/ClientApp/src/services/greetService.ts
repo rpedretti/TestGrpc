@@ -1,6 +1,6 @@
-﻿import { GreeterClient } from '../external/GreetServiceClientPb';
+﻿import * as grpcWeb from 'grpc-web';
+import { GreeterClient } from '../external/GreetServiceClientPb';
 import { HelloRequest } from '../external/greet_pb';
-import * as grpcWeb from 'grpc-web';
 
 const greeterClient = new GreeterClient('https://localhost:5001');
 

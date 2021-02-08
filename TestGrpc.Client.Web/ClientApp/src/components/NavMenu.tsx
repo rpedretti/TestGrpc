@@ -5,7 +5,7 @@ import './NavMenu.css';
 
 export default class NavMenu extends React.PureComponent<{}, { isOpen: boolean }> {
     public state = {
-        isOpen: false
+        isOpen: false,
     };
 
     public render() {
@@ -30,7 +30,7 @@ export default class NavMenu extends React.PureComponent<{}, { isOpen: boolean }
 
     private toggle = () => {
         this.setState({
-            isOpen: !this.state.isOpen
+            isOpen: !this.state.isOpen,
         });
     }
 }
