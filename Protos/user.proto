@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option csharp_namespace = "TestGrpc";
+
+package user;
+
+service User {
+	rpc Move (MoveRequest) returns (MoveResponse);
+}
+
+enum Direction {
+	FORWARD = 0;
+	BACKWARDS = 1;
+}
+
+enum MoveResult {
+	DONE = 0;
+	CRASHED = 1;
+}
+
+message MoveRequest {
+	int32 amount = 1;
+	Direction direction = 2; 
+}
+
+message MoveResponse {
+	MoveResult result = 1;
+}
