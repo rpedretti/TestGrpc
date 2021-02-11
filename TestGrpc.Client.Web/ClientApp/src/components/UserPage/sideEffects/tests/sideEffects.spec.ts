@@ -1,6 +1,6 @@
 import {
     handleAmountSideEffect,
-    handleDirectionSideEffect, 
+    handleDirectionSideEffect,
 } from '../sideEffects';
 import { Direction } from 'external/user_pb';
 
@@ -12,7 +12,7 @@ describe('sideEffects', () => {
 
             expect(change).toHaveBeenLastCalledWith("direction", Direction.FORWARD);
         })
-        
+
         it('should change direction to BACKWARDS if value is negative and previous was positive', () => {
             const change = jest.fn();
             handleAmountSideEffect(-1, 0, change);
@@ -38,9 +38,10 @@ describe('sideEffects', () => {
         ].forEach(t => it('should change amount accordingly', () => {
             const change = jest.fn();
             handleDirectionSideEffect(t.direction, t.value, change);
+
             expect(change).toHaveBeenCalledTimes(1);
             expect(change).toHaveBeenCalledWith("amount", t.expected);
         }));
-        
+
     });
 });

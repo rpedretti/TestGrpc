@@ -7,11 +7,7 @@ const mapSateToProps = (state: any) => {
     return {
         isMoving: state.user.isMoving,
         moveResult: state.user.moveResult,
+        moveUser: actions.moveUser,
     }
 }
-
-const mapDispatchToProps = {
-    moveUser: actions.moveUser,
-}
-
-export default connect(mapSateToProps, mapDispatchToProps)(React.memo(UserPage));
+export default connect(mapSateToProps)(React.memo(UserPage));

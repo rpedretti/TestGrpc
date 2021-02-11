@@ -3,14 +3,18 @@
     "parserOptions": {
         "ecmaVersion": 6,
         "sourceType": "module",
-        "project": "./tsconfig.json"
+        "project": "./tsconfig.json",
+        "ecmaFeatures": {
+            "jsx": true
+        }
     },
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
         "plugin:import/errors",
-        "plugin:import/warnings",
-        "plugin:import/typescript"
+        "plugin:import/warnings"
     ],
     "rules": {
         "no-unused-vars": "off",
@@ -47,7 +51,8 @@
         ],
         "comma-spacing": "error",
         "no-else-return": "error",
-        "no-undef": 0
+        "no-undef": 0,
+        "react-hooks/exhaustive-deps": "warn"
     },
     "overrides": [
         {
@@ -81,9 +86,14 @@
                     "src"
                 ]
             }
+        },
+        "react": {
+            "version": "detect"
         }
     },
     "plugins": [
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "react",
+        "react-hooks"
     ]
 }

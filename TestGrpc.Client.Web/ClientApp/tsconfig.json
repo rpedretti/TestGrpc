@@ -12,15 +12,19 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "lib": [
       "es6",
       "dom"
     ],
     "skipLibCheck": true,
+    "noFallthroughCasesInSwitch": true
   },
   "include": [
     "src"
+  ],
+  "exclude": [
+    "node_modules"
   ],
   "typeAcquisition": {
     "include": [

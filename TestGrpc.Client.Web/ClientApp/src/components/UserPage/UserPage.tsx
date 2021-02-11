@@ -22,12 +22,15 @@ const UserPage = (props: UserPageProps) => {
 
     return (
         <Form<FormValues>
-            onSubmit={v => {
-                moveUser(v.direction, v.amount)
-            }}
-            subscription={{ pristine: true }}
+            onSubmit={v => (
+                moveUser(v, null)
+                    .catch(e => {
+                        console.debug(e)
+                    })
+            )}
+            subscription={{ submitting: true }}
             initialValues={{ amount: 0, direction: Direction.FORWARD }}
-            render={({ handleSubmit, pristine }) => (
+            render={({ handleSubmit, submitting }) => (
                 <form onSubmit={handleSubmit}>
                     <UserPageSideEffects />
                     <Box width="100%">
@@ -61,7 +64,7 @@ const UserPage = (props: UserPageProps) => {
                                     type="submit"
                                     variant="contained"
                                     color="primary"
-                                    disabled={pristine}
+                                    disabled={submitting}
                                 >
                                     WALK!
                                 </Button>

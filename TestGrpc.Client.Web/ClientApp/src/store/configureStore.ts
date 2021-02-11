@@ -1,31 +1,32 @@
-import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
+import { all } from 'redux-saga/effects';
+// import reduxThunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import { userReducer } from 'components/UserPage/stateManagement/reducers';
 import { userSaga } from 'components/UserPage/stateManagement/userPageSaga';
+import formActionSaga from 'components/Form/formSagaAction';
 
 const sagaMiddleware = createSagaMiddleware();
 
-export default function configureStore() {
-    const middleware = [
-        sagaMiddleware,
-    ];
+const rootReducers = combineReducers({
+    user: userReducer,
+});
 
-    const rootReducer = combineReducers({
-        user: userReducer,
-    });
-
-    const enhancers = [];
-    const windowIfDefined = typeof window === 'undefined' ? null : window as any; // eslint-disable-line @typescript-eslint/no-explicit-any
-    if (windowIfDefined && windowIfDefined.__REDUX_DEVTOOLS_EXTENSION__) {
-        enhancers.push(windowIfDefined.__REDUX_DEVTOOLS_EXTENSION__());
-    }
-
-    const store = createStore(
-        rootReducer,
-        compose(applyMiddleware(...middleware), ...enhancers)
-    ); 
-
-    sagaMiddleware.run(userSaga);
-
-    return store;
+function* rootSaga() {
+    yield all([
+        userSaga(),
+        formActionSaga(),
+    ])
 }
+const middlewares = [sagaMiddleware];
+const store = createStore(
+    rootReducers,
+    composeWithDevTools(
+        applyMiddleware(...middlewares),
+    ),
+);
+
+sagaMiddleware.run(rootSaga);
+
+export default store;
