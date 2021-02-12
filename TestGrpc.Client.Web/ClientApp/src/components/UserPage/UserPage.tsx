@@ -1,9 +1,14 @@
-import { Box, Button, InputLabel, Typography, Divider } from '@material-ui/core';
+import { Box, Button, Typography, Divider, MenuItem } from '@material-ui/core';
 import * as React from 'react';
-import { Field, Form } from 'react-final-form';
+import { Form } from 'react-final-form';
+import { TextField, Select } from 'mui-rff';
 import { FormValues, UserPageProps } from './types';
 import UserPageSideEffects from './sideEffects/UserPageSideEffects';
 import { Direction, MoveResult } from 'external/user_pb';
+
+const parseObj = {
+    parse: (v: string) => Number.parseInt(v, 10),
+};
 
 const UserPage = (props: UserPageProps) => {
     const {
@@ -24,40 +29,38 @@ const UserPage = (props: UserPageProps) => {
         <Form<FormValues>
             onSubmit={v => (
                 moveUser(v, null)
-                    .catch(e => {
-                        console.debug(e)
-                    })
+                    .then<void>()
             )}
             subscription={{ submitting: true }}
-            initialValues={{ amount: 0, direction: Direction.FORWARD }}
+            initialValues={{ user: { amount: 0, direction: Direction.FORWARD } }}
+            initialValuesEqual={(a, b) => (
+                a?.user.amount === b?.user.amount
+                && a?.user.direction === b?.user.direction
+            )}
             render={({ handleSubmit, submitting }) => (
                 <form onSubmit={handleSubmit}>
                     <UserPageSideEffects />
                     <Box width="100%">
                         <Box display="flex" flexDirection="column">
                             <Box width="100px">
-                                <InputLabel id="amount-input">Amount:</InputLabel>
-                                <Field
-                                    name="amount" 
-                                    id="amount-input"
+                                <TextField
+                                    name="user.amount"
+                                    label="Amount:"
                                     data-testid="amount-input"
-                                    component="input"
                                     type="number"
-                                    parse={v => Number.parseInt(v, 10)}
+                                    fieldProps={parseObj}
                                 />
                             </Box>
                             <Box marginTop="12px" width="100px">
-                                <InputLabel id="direction-select">Direction:</InputLabel>
-                                <Field
-                                    name="direction"
+                                <Select
+                                    name="user.direction"
                                     id="direction-select"
                                     data-testid="direction-select"
-                                    component="select"
-                                    parse={v => Number.parseInt(v, 10)}
+                                    fieldProps={parseObj}
                                 >
-                                    <option value={Direction.FORWARD} label="Forward"/>
-                                    <option value={Direction.BACKWARDS} label="Backwards" />
-                                </Field>
+                                    <MenuItem value={Direction.FORWARD}>Forward</MenuItem>
+                                    <MenuItem value={Direction.BACKWARDS}>Backwards</MenuItem>
+                                </Select>
                             </Box>
                             <Box marginTop="16px">
                                 <Button

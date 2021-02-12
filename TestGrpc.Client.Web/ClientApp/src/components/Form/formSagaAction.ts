@@ -25,31 +25,30 @@ type ActionType<T = any, P = any> = {
     payload: P;
 }
 
-type Actions<TPROPS = any, TREQUEST = any, TRESPONSE = any, TERROR = any> = {
+type Actions<TRESPONSE = any, TERROR = any> = {
     REQUEST: string;
     SUCCESS: string;
     FAILURE: string;
-    request: (data: TREQUEST, props: TPROPS) => ActionType;
-    success: (data?: TRESPONSE) => ActionType;
+    success: (data: TRESPONSE) => ActionType;
     failure: (error?: TERROR) => ActionType;
 }
 
-type ActionLike<T, E, R> = Actions<any, any, R, E> & {
-    create: <P>(payload: P) => {
-        type: T;
-        payload: P;
+type ActionLike<TACTION, TPAYLOAD, TRESULT, TERROR = any> = Actions<TRESULT, TERROR> & {
+    create: (payload: TPAYLOAD) => {
+        type: TACTION;
+        payload: TPAYLOAD;
     }
 }
 
 const PROMISE = '@@redux-form-saga/PROMISE';
 const status: ['REQUEST', 'SUCCESS', 'FAILURE'] = ['REQUEST', 'SUCCESS', 'FAILURE'];
 
-type FormActionPayload<V, P> = {
+type FormActionPayload<VALUES, PROPS> = {
     request: {
         type: string;
         payload: {
-            values: V;
-            props?: P;
+            values: VALUES;
+            props?: PROPS;
         };
     };
     defer: {
@@ -59,8 +58,9 @@ type FormActionPayload<V, P> = {
     types: [string, string];
 }
 
-export type FormAction<T, E, R> = (<V, P>(values: V, props?: P | null) => Promise<any>)
-    & ActionLike<T, E, R>;
+export type FormAction<TACTION, TVALUES = any, TPAYLOAD = any, TRESULT = any, TERROR = any> =
+    (<P>(values: TVALUES, props?: P | null) => Promise<any>)
+    & ActionLike<TACTION, TPAYLOAD, TRESULT, TERROR>;
 
 const formAction = <V, P>(payload: FormActionPayload<V, P>) => ({
     type: PROMISE,
@@ -89,7 +89,8 @@ function createSubAction(requestAction: string, s: REQUEST | SUCCESS | FAILURE):
     return [actionType, subAction];
 }
 
-function createFormAction<T extends string, E, R>(requestAction: T): FormAction<T, E, R> {
+function createFormAction<TACTION extends string, TVALUES = any, TPAYLOAD = any, TRESULT = any, TERROR = any>
+    (requestAction: TACTION): FormAction<TACTION, TVALUES, TPAYLOAD, TRESULT, TERROR> {
     const actionMethods: any = {};
 
     status.forEach((s) => {

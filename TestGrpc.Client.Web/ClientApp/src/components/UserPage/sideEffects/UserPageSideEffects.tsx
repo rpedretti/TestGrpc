@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useForm } from 'react-final-form';
+import type { FormValues } from '../types';
 import {
     handleAmountSideEffect,
     handleDirectionSideEffect,
@@ -9,13 +10,11 @@ import HandleSideEffect from 'components/Form/HandleSideEffect';
 
 const UserPageSideEffects = () => {
 
-    const { change, getState } = useForm();
+    const { change, getState } = useForm<FormValues>();
 
     const handleDirection = React.useCallback((value: Direction) => {
         const { values } = getState();
-        const amount = values.amount;
-
-        handleDirectionSideEffect(value, amount, change);
+        handleDirectionSideEffect(value, values.user.amount, change);
     }, [change, getState]);
 
     const handleAmount = React.useCallback((value: number, previous: number) => {
@@ -24,8 +23,8 @@ const UserPageSideEffects = () => {
 
     return (
         <>
-            <HandleSideEffect name="amount" onChange={handleAmount} />
-            <HandleSideEffect name="direction" onChange={handleDirection} />
+            <HandleSideEffect name="user.amount" onChange={handleAmount} />
+            <HandleSideEffect name="user.direction" onChange={handleDirection} />
         </>
     );
 };

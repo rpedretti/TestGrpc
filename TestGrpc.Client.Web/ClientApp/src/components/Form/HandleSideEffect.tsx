@@ -14,7 +14,7 @@ const HandleSideEffectObserver = <T extends any>(props: HandleSideEffectObserver
 
     const active = meta?.active;
     const value = input.value;
-    
+
     const [previousValue, setPreviousValue] = React.useState(value);
     const [previousFocused, setPreviousFocused] = React.useState(!!active);
     const [previousBlured, setPreviousBlured] = React.useState(!!active);
@@ -25,7 +25,7 @@ const HandleSideEffectObserver = <T extends any>(props: HandleSideEffectObserver
             setPreviousValue(value);
         }
     }, [value, previousValue, onChange]);
-    
+
     React.useEffect(() => {
         if (previousBlured && !active) {
             onBlur?.();
@@ -35,14 +35,14 @@ const HandleSideEffectObserver = <T extends any>(props: HandleSideEffectObserver
             setPreviousBlured(!!active);
         }
     }, [active, previousBlured, onBlur]);
-    
+
     React.useEffect(() => {
         if (active && !previousFocused) {
             setPreviousFocused(active);
             onFocus?.();
-          } else if (!active && previousFocused) {
+        } else if (!active && previousFocused) {
             setPreviousFocused(!!active);
-          }
+        }
     }, [active, previousFocused, onFocus]);
 
     return null;
@@ -51,9 +51,9 @@ const HandleSideEffectObserver = <T extends any>(props: HandleSideEffectObserver
 const HandleSideEffect = <T extends any>(props: HandleSideEffectProps<T>) => (
     React.createElement(Field, {
         name: props.name,
-        subscription: { value: true, active: true },
+        subscription: props.subscription,
         // eslint-disable-next-line react/display-name
-        render: p => React.createElement<HandleSideEffectObserverProps<T>>(HandleSideEffectObserver, { 
+        render: p => React.createElement<HandleSideEffectObserverProps<T>>(HandleSideEffectObserver, {
             meta: p.meta,
             input: p.input,
             onBlur: props.onBlur,
@@ -62,5 +62,9 @@ const HandleSideEffect = <T extends any>(props: HandleSideEffectProps<T>) => (
         }),
     })
 );
+
+HandleSideEffect.defaultProps = {
+    subscription: { value: true, active: true },
+}
 
 export default genericMemo(HandleSideEffect);

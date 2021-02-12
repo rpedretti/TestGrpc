@@ -3,12 +3,10 @@ import type { FormValues } from '../types';
 import { actions } from './actions';
 import UserService from 'services/userService';
 import type { FormSagaAction } from 'components/Form/formSagaAction';
-import type { Direction } from 'external/user_pb';
+import type { PromiseType } from 'common/types';
 
-type PromiseType<T> = T extends PromiseLike<infer U> ? PromiseType<U> : T;
-
-function* moveUser(action: FormSagaAction<FormValues, { direction: Direction, amount: number }>) {
-    const { direction, amount } = action.payload.values;
+function* moveUser(action: FormSagaAction<FormValues>) {
+    const { direction, amount } = action.payload.values.user;
 
     yield put(actions.setUserMoving(true));
 
