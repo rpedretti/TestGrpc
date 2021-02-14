@@ -17,8 +17,7 @@ export interface HandleSideEffectObserverProps<T> {
     onFocus?: () => void;
 }
 
-
-type ChangeFunction<T = Record<string, any>, U = any> = FormApi<T & Record<string, U>>["change"];
+type ChangeFunction<T = Record<string, any>> = FormApi<T>["change"];
 
 export type {
     ChangeFunction,

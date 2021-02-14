@@ -1,13 +1,15 @@
-import { Box, Button, Typography, Divider, MenuItem } from '@material-ui/core';
 import * as React from 'react';
+import { Box, Button, Typography, Divider, MenuItem } from '@material-ui/core';
 import { Form } from 'react-final-form';
+import arrayMutators from 'final-form-arrays'
 import { TextField, Select } from 'mui-rff';
 import { FormValues, UserPageProps } from './types';
 import UserPageSideEffects from './sideEffects/UserPageSideEffects';
+import UserLocations from './components/UserLocations/UserLocations';
 import { Direction, MoveResult } from 'external/user_pb';
 
 const parseObj = {
-    parse: (v: string) => Number.parseInt(v, 10),
+    parse: (v: string): number => Number.parseInt(v, 10),
 };
 
 const UserPage = (props: UserPageProps) => {
@@ -31,8 +33,11 @@ const UserPage = (props: UserPageProps) => {
                 moveUser(v, null)
                     .then<void>()
             )}
+            mutators={{
+                ...arrayMutators,
+            }}
             subscription={{ submitting: true }}
-            initialValues={{ user: { amount: 0, direction: Direction.FORWARD } }}
+            initialValues={{ user: { amount: 0, direction: Direction.FORWARD, locations: [] } }}
             initialValuesEqual={(a, b) => (
                 a?.user.amount === b?.user.amount
                 && a?.user.direction === b?.user.direction
@@ -74,6 +79,10 @@ const UserPage = (props: UserPageProps) => {
                             </Box>
                         </Box>
                         <Box marginY="12px">
+                            <Divider />
+                        </Box>
+                        <Box marginY="12px">
+                            <UserLocations />
                             <Divider />
                         </Box>
                         <Box>
