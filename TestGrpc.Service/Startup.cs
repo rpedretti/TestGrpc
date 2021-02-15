@@ -39,7 +39,6 @@ namespace TestGrpc.Service
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<GreeterService>().RequireCors("AllowAll");
                 endpoints.MapGrpcService<UserService>().RequireCors("AllowAll");
 
                 endpoints.MapGet("/", async context =>

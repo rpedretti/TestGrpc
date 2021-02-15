@@ -9,7 +9,6 @@ import { Direction } from 'external/user_pb';
 import HandleSideEffect from 'components/Form/HandleSideEffect';
 
 const UserPageSideEffects = () => {
-
     const { change, getState } = useForm<FormValues>();
 
     const handleDirection = React.useCallback((value: Direction) => {

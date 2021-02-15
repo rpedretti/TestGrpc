@@ -1,12 +1,28 @@
 {
     "typescript.tsdk": "node_modules\\typescript\\lib",
-    "eslint.format.enable": true,
     "[typescript]": {
-        "editor.defaultFormatter": "vscode.typescript-language-features",
-        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.fixAll": true
+        },
+        "editor.defaultFormatter": "vscode.typescript-language-features"
     },
     "[typescriptreact]": {
-        "editor.defaultFormatter": "vscode.typescript-language-features",
-        "editor.formatOnSave": true
-    }
+        "editor.codeActionsOnSave": {
+            "source.fixAll": true
+        },
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "eslint.validate": [
+        "typescript",
+        "typescriptreact",
+    ],
+    "eslint.options": {
+        "extensions": [
+            ".ts",
+            ".tsx"
+        ]
+    },
+    "eslint.format.enable": true,
+    "eslint.alwaysShowStatus": true,
+    "javascript.format.enable": false,
 }

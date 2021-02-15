@@ -1,14 +1,13 @@
 import type { SubmissionErrors } from "final-form";
-import { Direction, MoveResult } from "external/user_pb";
+import { Direction } from "external/user_pb";
 import { FromNullableArray } from "common/types";
 
 export interface UserPageProps {
     moveUser: (value: FormValues, props?: UserPageProps | null) => Promise<SubmissionErrors | void>;
-    isMoving: boolean;
-    moveResult?: MoveResult;
 }
 
 export interface Location {
+    id: number;
     name: string;
     lat?: string;
     long?: string;
