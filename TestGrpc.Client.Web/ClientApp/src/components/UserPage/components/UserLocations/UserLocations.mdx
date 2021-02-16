@@ -1,28 +1,33 @@
 ---
 menu: Form
-name: User Location
-route: /form/userlocation
+name: User Locations
+route: /form/userlocations
 ---
 
 import { Form } from 'react-final-form';
+import arrayMutators from 'final-form-arrays'
 import { Playground, Props } from 'docz'
 import { Direction } from 'external/user_pb';
-import UserLocation from './UserLocation.tsx'
+import UserLocations from './UserLocations.tsx'
 
 # User Location
 
 <Playground>
     <Form
         onSubmit={() => {}}
+        mutators={{
+            ...arrayMutators
+        }}
         initialValues={{ 
             user: { 
                 locations: [
                     { id: 1, name: 'One', lat: 10, long: -4 },
+                    { id: 1, name: 'Two', lat: -10.123, long: 1.12312 },
                 ]
             }
         }}
         render={p => (<>
-            <UserLocation name="user.locations[0]" index={0} deleteFn={() => {}} />
+            <UserLocations />
             <pre style={{fontSize: "14px"}}>{JSON.stringify(p.values, null, 2)}</pre>
         </>)}
     />
@@ -30,4 +35,4 @@ import UserLocation from './UserLocation.tsx'
 
 # Api
 
-<Props of={UserLocation}></Props>
+<Props of={UserLocations}></Props>

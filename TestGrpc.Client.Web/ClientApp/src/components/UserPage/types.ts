@@ -18,7 +18,7 @@ export interface FormValues {
         amount: number;
         direction: Direction;
         locations?: Location[];
-    },
+    };
 }
 
 type LocationArray = FromNullableArray<FormValues["user"]["locations"]>;

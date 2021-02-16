@@ -4,9 +4,7 @@ import { TextField } from 'mui-rff';
 import { UserLocationProps } from './types';
 
 const parseObj = {
-    parse: (v: string): number => {
-        return Number.parseFloat(v)
-    },
+    parse: (v: string): number | null => (v ? +v : null),
 };
 
 const subscription = {
@@ -47,7 +45,7 @@ const UserLocation = (props: UserLocationProps) => {
                             margin="normal"
                             name={`${name}.lat`}
                             label="Latitude"
-                            type="text"
+                            type="number"
                             fieldProps={numberProps}
                         />
                     </Grid>
@@ -56,7 +54,7 @@ const UserLocation = (props: UserLocationProps) => {
                             margin="normal"
                             name={`${name}.long`}
                             label="Longitude"
-                            type="text"
+                            type="number"
                             fieldProps={numberProps}
                         />
                     </Grid>

@@ -18,16 +18,20 @@
     ],
     "rules": {
         "no-unused-vars": "off",
+        "import/extensions": 0,
+        "import/prefer-default-export": 0,
+        "react/destructuring-assignment": 0,
+        "react-hooks/exhaustive-deps": "warn",
+        "react/require-default-props": "error",
         "@typescript-eslint/no-unused-vars": [
             "error",
             {
                 "varsIgnorePattern": "^_"
             }
         ],
-        "import/extensions": 0,
-        "import/prefer-default-export": 0,
         "@typescript-eslint/no-explicit-any": 0,
-        "react/destructuring-assignment": 0,
+        "@typescript-eslint/no-use-before-define": "off",
+        "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/naming-convention": [
             "error",
             {
@@ -47,15 +51,13 @@
             }
         ],
         "import/order": "warn",
-        "@typescript-eslint/no-use-before-define": "off",
         "comma-dangle": [
             "error",
             "always-multiline"
         ],
         "comma-spacing": "error",
         "no-else-return": "error",
-        "no-undef": 0,
-        "react-hooks/exhaustive-deps": "warn"
+        "no-undef": 0
     },
     "overrides": [
         {

@@ -3,6 +3,7 @@ import { Box, Button } from '@material-ui/core';
 import { FieldArray } from 'react-final-form-arrays';
 import { Location } from '../../types';
 import UserLocation from './UserLocation';
+import { UserLocationsProps } from './types';
 
 interface AddButtonProps {
     add: ((value: Location) => void);
@@ -41,7 +42,8 @@ const AddButton = (props: AddButtonProps) => {
 
 const AddButtonMemo = React.memo(AddButton);
 
-const UserLocations = () => {
+const UserLocations = (props: UserLocationsProps) => {
+    const { maxLocations } = props;
 
     return (
         <FieldArray<Location> name="user.locations">
@@ -59,11 +61,15 @@ const UserLocations = () => {
                             />
                         );
                     })}
-                    <AddButtonMemo disabled={(fields.length ?? 0) >= 4} add={fields.push} />
+                    <AddButtonMemo disabled={(fields.length ?? 0) >= maxLocations} add={fields.push} />
                 </Box>
             )}
         </FieldArray >
     );
+}
+
+UserLocations.defaultProps = {
+    maxLocations: 4,
 }
 
 export default React.memo(UserLocations);
