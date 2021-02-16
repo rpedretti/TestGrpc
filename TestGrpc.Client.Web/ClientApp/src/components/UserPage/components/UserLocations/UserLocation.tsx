@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Box, Button, Card, Grid } from '@material-ui/core';
 import { TextField } from 'mui-rff';
-import type { UserLocationProps } from './types';
+import { UserLocationProps } from './types';
 
 const parseObj = {
     parse: (v: string): number => {

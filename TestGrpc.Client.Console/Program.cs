@@ -9,11 +9,11 @@ namespace TestGrpc.Client.Console
         static async Task Main(string[] args)
         {
             using var channel = GrpcChannel.ForAddress("https://localhost:5001");
-            var client = new Greeter.GreeterClient(channel);
+            var client = new User.UserClient(channel);
 
-            var reply = await client.SayHelloAsync(new HelloRequest { Name = "Rafael" });
+            var reply = await client.MoveAsync(new MoveRequest { Amount = 11, Direction = Direction.Forward });
 
-            System.Console.WriteLine("Greeting: " + reply.Message);
+            System.Console.WriteLine("Greeting: " + reply.Result);
             System.Console.WriteLine("Press any key to exit...");
             System.Console.ReadKey();
         }

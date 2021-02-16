@@ -1,0 +1,24 @@
+---
+menu: Form
+name: User Location
+route: /form/userlocation
+---
+
+import { Form } from 'react-final-form';
+import { Playground, Props } from 'docz'
+import { Direction } from 'external/user_pb';
+import UserLocation from './UserLocation.tsx'
+
+# User Location
+
+<Playground>
+    <Form
+        onSubmit={() => {}}
+        initialValues={{ user: { amount: 0, direction: Direction.FORWARD, locations: [{ id: 1, name: 'One', lat: 10, long: -4 }] } }}
+        render={p => <UserLocation name="user.locations[0]" index={0} deleteFn={() => {}} />}
+    />
+</Playground>
+
+# Api
+
+<Props of={UserLocation}></Props>

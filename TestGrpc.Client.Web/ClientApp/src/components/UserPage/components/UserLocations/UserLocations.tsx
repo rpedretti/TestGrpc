@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Box, Button } from '@material-ui/core';
 import { FieldArray } from 'react-final-form-arrays';
-import type { Location } from '../../types';
+import { Location } from '../../types';
 import UserLocation from './UserLocation';
 
 interface AddButtonProps {
