@@ -1,5 +1,5 @@
 export default {
-    base: "/TestGrpc/docs",
+    base: "/TestGrpc",
     typescript: true,
     files: '**/*.mdx',
     dest: "../../docs"
